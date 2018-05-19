@@ -4,7 +4,7 @@
   "description": "code challenge",
   "main": "server.js",
   "scripts": {
-    "test": "not yet",
+    "test": "tape \"test/*test.js\"",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
@@ -21,5 +21,9 @@
     "q": "^1.5.1",
     "redis": "^2.8.0",
     "restify": "^7.2.0"
+  },
+  "devDependencies": {
+    "proxyquire": "^2.0.1",
+    "tape": "^4.9.0"
   }
 }
