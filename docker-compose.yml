@@ -1,0 +1,38 @@
+version: '3'
+services:  
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+
+  db:
+    image: mysql:5.6
+    ports:
+      - "3306:3306"
+    volumes:
+      - /tmp/dockerData:/var/lib/mysql
+    environment:
+       - MYSQL_DATABASE=vague
+       - MYSQL_ROOT_PASSWORD=123456
+
+  web:
+    build: ./app
+    ports:
+      - "3978:3978"
+    depends_on:
+      - redis
+      - db
+    volumes:
+      - /home/guilherme/git/vague-code-challenge/app:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - PORT=3978
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PREFIX=vague-
+      - CACHE_REDIS_TTL=60
+      - DB_HOSTNAME=db
+      - DB_USERNAME=root
+      - DB_PASSWORD=123456
+      - DB_DATABASE=vague
+      - NODE_ENV=production
