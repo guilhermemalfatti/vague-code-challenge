@@ -11,6 +11,7 @@ module.exports.retriveUsers =  function (req, res) {
     redisCache.getValue(prefix + req.params.role, undefined, function(err, results){
         if(err){
             console.log("redis error: " + err.message);
+            responseBuilder.createErrorResponse(res, 500, 500, err.message);
         }else{
             if(results){
                 responseBuilder.createResponse(res, 200, 200, JSON.parse(results));
@@ -37,15 +38,15 @@ module.exports.retriveUsers =  function (req, res) {
 module.exports.createUsers = function (req, res) {
     var pool = database.getConnection();
     var post = {name: req.params.name, 
-        role: req.params.role,
-        };
+                role: req.params.role,
+                };
     var fields = ['name','role'];
 
     pool.insertRows([post],'users', fields, function (error, results) {
         if (error){
             responseBuilder.createErrorResponse(res, 500, 500, error.sqlMessage);
         }else{
-            responseBuilder.createResponse(res, 200, 200, {quote: results.insertId});
+            responseBuilder.createResponse(res, 200, 200, {userid: results.insertId});
         }
     });
 }

@@ -1,4 +1,4 @@
-var responseBuilder = require("../util/responseBuilder");
+var responseBuilder = require("../util/responseBuilder.js");
 
 //dumb validation
 exports.bodyValidate = function(req, res, next) {
