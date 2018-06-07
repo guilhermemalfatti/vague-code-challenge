@@ -44,7 +44,7 @@ I expect that the docker and GitHub are already installed in your machine. Pleas
 
     $ git clone https://github.com/guilhermemalfatti/api-car-insurance.git
     $ cd PROJECT
-    $ docker-composer build
+    $ docker-compose build
   
 ## Running the tests
 
